@@ -15,11 +15,7 @@ const Loader = () => {
       `}</style>
 
       <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center">
-        
-        {/* Priyanshu — fill होता हुआ */}
         <div className="relative inline-block">
-          
-          {/* Base Text — खाली/outline */}
           <h1
             className="text-5xl md:text-7xl font-serif tracking-widest select-none"
             style={{
@@ -30,10 +26,7 @@ const Loader = () => {
             Priyanshu
           </h1>
 
-          {/* Fill Text — ऊपर से yellow भरता जाएगा */}
-          <div
-            className="fill-text absolute inset-0 overflow-hidden whitespace-nowrap"
-          >
+          <div className="fill-text absolute inset-0 overflow-hidden whitespace-nowrap">
             <h1
               className="text-5xl md:text-7xl font-serif tracking-widest select-none"
               style={{ color: "#FFC700" }}
@@ -41,7 +34,6 @@ const Loader = () => {
               Priyanshu
             </h1>
           </div>
-
         </div>
       </div>
     </>

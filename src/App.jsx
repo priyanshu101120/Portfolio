@@ -11,12 +11,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // जब पूरा page load हो जाए
     const handleLoad = () => {
-      setTimeout(() => setLoading(false), 500); // थोड़ा smooth exit
+      setTimeout(() => setLoading(false), 500);
     };
 
-    // अगर page पहले से load हो चुका है
     if (document.readyState === "complete") {
       handleLoad();
     } else {
