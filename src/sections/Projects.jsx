@@ -1,5 +1,5 @@
 import React from "react";
-import dark from "../assets/dark.png";
+import dark from "../assets/dark.webp";
 import Cards from "../components/Cards";
 import { project as projectData } from "../data/data";
 
@@ -8,11 +8,12 @@ const Projects = () => {
     <div className="relative w-full min-h-screen bg-black overflow-hidden" id="projects">
       <div className="absolute top-0 left-0 w-full h-75 md:h-125">
         <img
-          className="w-full h-full object-cover opacity-40 md:opacity-60"
+          className="w-full object-cover opacity-40 md:opacity-60"
           src={dark}
           alt="Dark Mode Background"
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent to-black"></div>
+       
       </div>
 
       <div className="relative z-10 pt-24 md:pt-32 pb-16 md:pb-24 px-4">
