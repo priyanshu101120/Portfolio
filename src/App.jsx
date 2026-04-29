@@ -6,6 +6,7 @@ import Projects from "./sections/Projects";
 import AboutContact from "./sections/AboutContact";
 import { useEffect, useState } from "react";
 import Loader from "./pages/Loader";
+import TechStack from "./sections/TechStack";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/about" element={<AboutContact />} />
+          <Route path="/skills" element={<TechStack />} />
         </Routes>
       </div>
     </>
