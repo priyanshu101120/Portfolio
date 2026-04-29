@@ -24,7 +24,7 @@ const AboutContact = () => {
               about
             </h2>
             <div className="text-base md:text-lg font-medium space-y-4 leading-relaxed">
-              <p>Hey, I'm Priyanshu! finishing my BCA at LPU.</p>
+              <p>Hey, I'm Priyanshu! finishing my BCA at Lovely Professional University.</p>
               <p>Frontend-focused Full Stack Developer skilled in building real-time and AI-powered web applications using React.js and Supabase.</p>
               <p>Currently open for Full-stack roles.</p>
             </div>

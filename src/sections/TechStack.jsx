@@ -43,7 +43,7 @@ const TechStack = () => {
   return (
     <section
       className="relative w-full bg-black py-16 md:py-24 px-4 overflow-hidden"
-      id="tech-stack"
+      id="skills"
     >
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tighter">
