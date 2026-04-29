@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/name.png";
+import logo from "../assets/name.webp";
 
 const Navbar = () => {
   return (
@@ -13,10 +13,11 @@ const Navbar = () => {
           className="h-6 md:h-8 object-contain scale-[2] md:scale-[2.5] transition-transform duration-300 hover:opacity-80"
           src={logo}
           alt="Priyanshu Logo"
+          loading="lazy"
         />
       </a>
 
-      <div className="flex gap-4 md:gap-10 text-sm md:text-lg font-medium pr-2 md:pr-4">
+      <div className="flex gap-2 md:gap-10 text-sm md:text-lg font-medium pr-2 md:pr-4">
         <a href="#home" className="hover:text-yellow-400 transition-colors duration-300">
           Home
         </a>

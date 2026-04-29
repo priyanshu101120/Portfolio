@@ -1,6 +1,6 @@
-import taskoraImg from "../assets/taskoraimage.jpeg";
-import bizlinkImg from "../assets/bizlink.png";
-import commingsoon from "../assets/commingsoon.png";
+import taskoraImg from "../assets/taskoraimage.webp";
+import bizlinkImg from "../assets/bizlink.webp";
+import commingsoon from "../assets/commingsoon.webp";
 export const project = [{
   id: 1,
   title: "Taskora AI",

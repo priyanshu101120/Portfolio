@@ -1,5 +1,5 @@
 import React from "react";
-import yourImage from "../assets/priyanshu.png";
+import priyanshu from "../assets/priyanshu.webp";
 import resume from "../assets/priyanshu-Resume.pdf";
 import { CiMail } from "react-icons/ci";
 import { FaGithub } from "react-icons/fa";
@@ -12,7 +12,7 @@ const AboutContact = () => {
         
         <div className="w-full md:w-[35%] min-h-88 md:min-h-full">
           <img
-            src={yourImage}
+            src={priyanshu}
             className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             alt="Priyanshu"
           />
