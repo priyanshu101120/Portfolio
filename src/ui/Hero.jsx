@@ -1,10 +1,12 @@
-import React from "react";
-import bg from "../assets/bg.mp4";
-import resume from "../assets/priyanshu-Resume.pdf";
+import bg from "../assets/background.mp4";
+// import resume from "../assets/priyanshu-Resume.pdf";
 
 const Hero = () => {
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black" id="home">
+    <div
+      className="relative w-full h-screen overflow-hidden bg-black"
+      id="home"
+    >
       <div className="absolute inset-0 w-full h-full">
         <video
           className="w-full h-full object-cover"
@@ -22,14 +24,14 @@ const Hero = () => {
           style={{ fontFamily: "Prata, serif" }}
           className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6 tracking-tight"
         >
-          Hi, I'm Priyanshu
+          Hi,<span className="text-[#FFC700]"> I'm Priyanshu</span>
         </h1>
-        
+
         <p className="text-lg sm:text-xl md:text-2xl mb-10 font-light tracking-wide max-w-2xl">
           A passionate web developer
         </p>
 
-        <a
+        {/* <a
           href={resume}
           target="_blank"
           rel="noopener noreferrer"
@@ -39,7 +41,7 @@ const Hero = () => {
                      text-sm sm:text-base font-medium"
         >
           Resume
-        </a>
+        </a> */}
       </div>
     </div>
   );

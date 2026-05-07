@@ -1,54 +1,86 @@
-import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import { useRef } from "react";
+import { GiThunderBlade } from "react-icons/gi";
 
-const Cards = ({ item }) => {
+const Cards = ({ item, index, totalCards }) => {
+  const cardRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "start start"],
+  });
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, 1 - (totalCards - index) * 0.04],
+  );
+
+  const topOffset = `${80 + index * 25}px`;
+
   return (
-    <div
-      className="group w-full bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden 
-                    hover:border-yellow-500/50 transition-all duration-500 shadow-2xl flex flex-col h-full"
+    <motion.article
+      ref={cardRef}
+      style={{
+        top: topOffset,
+        scale,
+      }}
+      className="sticky mb-8 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-neutral-950 to-neutral-900 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl min-h-110"
     >
-      <div className="relative overflow-hidden aspect-video w-full">
+      <div className="relative h-60 md:h-auto overflow-hidden bg-neutral-900">
         <img
           src={item.image}
           alt={item.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
         />
-
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent md:bg-linear-to-r md:from-transparent md:to-black/30" />
       </div>
 
-      <div className="p-5 md:p-6 flex flex-col grow justify-between">
+      <div className="flex flex-col justify-between gap-6 p-8 md:p-12">
         <div>
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-yellow-500 transition-colors">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
             {item.title}
           </h3>
-          <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
+          <p className="text-neutral-400 text-sm md:text-base leading-relaxed mb-6">
             {item.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {item.tech?.map((t, index) => (
+          <div className="flex flex-wrap gap-2">
+            {item.tech?.map((tech, index) => (
               <span
                 key={index}
-                className="text-[10px] uppercase tracking-wider font-bold bg-white/10 text-gray-300 px-3 py-1 rounded-md border border-white/5"
+                className="px-3 py-1.5 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-neutral-300 backdrop-blur-md hover:bg-white/10 transition"
               >
-                {t}
+                {tech}
               </span>
             ))}
           </div>
         </div>
 
-        <a
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full md:w-fit text-center bg-yellow-500 text-black px-6 py-2.5 rounded-xl font-bold 
-                     hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg shadow-yellow-500/20"
-        >
-          View Project
-        </a>
+        <div className="flex flex-wrap gap-3 mt-2">
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFC700] text-black text-sm font-semibold hover:bg-[#fcd754] transition-all hover:-translate-y-0.5"
+          >
+            Live Demo
+            <ExternalLink className="w-4 h-4 group-hover:rotate-12 transition" />
+          </a>
+
+          <a
+            href={item.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 hover:-translate-y-0.5 transition-all"
+          >
+            <GiThunderBlade className="w-4 h-4" />
+            GitHub
+          </a>
+        </div>
       </div>
-    </div>
+    </motion.article>
   );
 };
 

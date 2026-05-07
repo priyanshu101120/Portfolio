@@ -1,4 +1,3 @@
-import React from "react";
 import {
   SiReact,
   SiNextdotjs,
@@ -15,6 +14,7 @@ import {
   SiGit,
   SiHtml5,
   SiJavascript,
+  SiShadcnui,
 } from "react-icons/si";
 import { FaJava, FaCss3Alt } from "react-icons/fa";
 
@@ -34,10 +34,11 @@ const TechStack = () => {
     { name: "Supabase", icon: <SiSupabase />, color: "#3ECF8E" },
     { name: "Java", icon: <FaJava />, color: "#007396" },
     { name: "HTML5", icon: <SiHtml5 />, color: "#E34F26" },
-    { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" }, // Added CSS3
+    { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
     { name: "Git", icon: <SiGit />, color: "#F05032" },
     { name: "GitHub", icon: <SiGithub />, color: "#ffffff" },
     { name: "Vercel", icon: <SiVercel />, color: "#ffffff" },
+    { name: "Shadcn UI", icon: <SiShadcnui/>, color: "#ffffff" },
   ];
 
   return (
