@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink } from "lucide-react";
 import { useRef } from "react";
-import { GiThunderBlade } from "react-icons/gi";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Cards = ({ item, index, totalCards }) => {
   const cardRef = useRef(null);
@@ -66,7 +65,7 @@ const Cards = ({ item, index, totalCards }) => {
             className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFC700] text-black text-sm font-semibold hover:bg-[#fcd754] transition-all hover:-translate-y-0.5"
           >
             Live Demo
-            <ExternalLink className="w-4 h-4 group-hover:rotate-12 transition" />
+            <FaExternalLinkAlt className="w-4 h-4 group-hover:rotate-12 transition" />
           </a>
 
           <a
@@ -75,7 +74,7 @@ const Cards = ({ item, index, totalCards }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-white text-sm font-semibold hover:bg-white/5 hover:-translate-y-0.5 transition-all"
           >
-            <GiThunderBlade className="w-4 h-4" />
+            <FaGithub className="w-4 h-4" />
             GitHub
           </a>
         </div>

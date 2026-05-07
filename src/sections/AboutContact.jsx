@@ -1,4 +1,3 @@
-import React from "react";
 import priyanshu from "../assets/priyanshu.webp";
 import resume from "../assets/priyanshu-Resume.pdf";
 import { CiMail } from "react-icons/ci";
@@ -21,7 +20,7 @@ const AboutContact = () => {
         <div className="w-full md:w-[33%] bg-[#FFC700] text-black p-8 md:p-12 flex flex-col justify-between">
           <div>
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 tracking-tighter">
-              about
+              About
             </h2>
             <div className="text-base md:text-lg font-medium space-y-4 leading-relaxed">
               <p>Hey, I'm Priyanshu! finishing my BCA at Lovely Professional University.</p>
