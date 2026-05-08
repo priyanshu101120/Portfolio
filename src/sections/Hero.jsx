@@ -28,7 +28,7 @@ const Hero = () => {
         </h1>
 
         <p className="text-lg sm:text-xl md:text-2xl mb-10 font-light tracking-wide max-w-2xl">
-          A passionate web developer
+          I Create Web Apps That Actually Work
         </p>
 
         {/* <a
