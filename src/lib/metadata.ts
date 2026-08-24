@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const siteMetadata: Metadata = {
   title: {
-    default: 'Priyansu',
+    default: 'Priyanshu',
     template: '%s | Priyanshu',
   },
   description:
