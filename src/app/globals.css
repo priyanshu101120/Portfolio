@@ -1,0 +1,212 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  --color-cream: #E8E4DE;
+  --color-ink: #0F0E0C;
+  --color-accent: #C45D3E;
+  --color-accent-light: #E07A5F;
+  --color-accent-muted: #D4956B;
+  --color-warm: #6b645c;
+  --color-muted: #b0ada8;
+  --color-light: #d1d1c7;
+  --color-elevated: #2a2a2a;
+  --color-elevated-dark: #1a1a18;
+  --color-surface: #0d0d0c;
+  --color-surface-mid: #161615;
+  --color-border: #d0d0c8;
+  --color-border-dark: #c8c8c0;
+  --color-border-subtle: #393632;
+  --color-border-subtler: #2a2a28;
+  --color-charcoal: #1a1a1a;
+  --color-gray-soft: #9a9a90;
+  --color-gray-mid: #4a4a48;
+  --color-gray-btn: #524f4c;
+  --color-footer-bg: #dfdfd9;
+  --color-footer-border: #cfcfc8;
+  --ease-in-expo: cubic-bezier(0.1, 0, 0.3, 1);
+  --ease-custom: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .film-grain {
+    animation: none !important;
+  }
+
+  .marquee-content-left,
+  .marquee-content-right {
+    animation: none !important;
+  }
+
+  .arrow-pulse {
+    animation: none !important;
+  }
+
+  .preloader-active main {
+    visibility: visible !important;
+  }
+}
+
+body.menu-open {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+body.preloader-active {
+  overflow: hidden;
+}
+
+html {
+  touch-action: pan-y;
+}
+
+body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+::selection {
+  background: #C45D3E;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-active main {
+    visibility: visible !important;
+  }
+}
+
+.bg-primary {
+  background-color: #E07A5F;
+}
+.bg-foreground {
+  background-color: #24231f;
+}
+
+.film-grain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-row {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.marquee-content-left {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee-left 30s linear infinite;
+}
+
+.marquee-content-right {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee-right 30s linear infinite;
+}
+
+.marquee-row:hover .marquee-content-left,
+.marquee-row:hover .marquee-content-right {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.scroll-progress-bar {
+  will-change: transform;
+}
+.film-grain {
+  will-change: transform;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+.arrow-pulse {
+  animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+.marquee-row {
+  position: relative;
+}
+.marquee-row::before,
+.marquee-row::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-row-light::before {
+  left: 0;
+  background: linear-gradient(to right, #E8E4DE, transparent);
+}
+.marquee-row-light::after {
+  right: 0;
+  background: linear-gradient(to left, #E8E4DE, transparent);
+}
+
+.marquee-row-dark::before {
+  left: 0;
+  background: linear-gradient(to right, #0F0E0C, transparent);
+}
+.marquee-row-dark::after {
+  right: 0;
+  background: linear-gradient(to left, #0F0E0C, transparent);
+}
+
+@media (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+body.cursor-disabled,
+body.cursor-disabled * {
+  cursor: auto !important;
+}
+
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}

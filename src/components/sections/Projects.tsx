@@ -1,0 +1,638 @@
+'use client';
+
+import React, {useRef} from 'react';
+import Image from 'next/image';
+import { Link } from 'next-transition-router';
+import { gsap, useGSAP } from '@/lib/gsap';
+import { useRouter } from 'next/navigation';
+import AnimatedHeading from '@/components/ui/AnimateHeading';
+import { getAllProjects } from '@/lib/projects';
+import { Project } from '@/lib/projects';
+
+interface MobileSnapProjectsProps {
+  projects: Project[];
+  router: ReturnType<typeof useRouter>;
+}
+
+function MobileSnapProjects({
+  projects,
+  router,
+}: MobileSnapProjectsProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useGSAP(
+    () => {
+      if (!sectionRef.current || !projects.length) return;
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(max-width: 767px)', () => {
+        const cards = cardRefs.current.filter(Boolean);
+
+        cards.forEach((card) => {
+          const imgWrap = card.querySelector('.mc-img-wrap');
+          const img = card.querySelector('.mc-img');
+          const num = card.querySelector('.mc-num');
+          const tags = card.querySelectorAll('.mc-tag');
+          const title = card.querySelector('.mc-title');
+          const cta = card.querySelector('.mc-cta');
+
+          gsap.set(card, {
+            opacity: 0,
+            y: 52,
+          });
+
+          if (imgWrap) {
+            gsap.set(imgWrap, {
+              clipPath: 'inset(100% 0 0 0 round 14px)',
+            });
+          }
+
+          if (img) {
+            gsap.set(img, {
+              scale: 1.12,
+            });
+          }
+
+          if (num) {
+            gsap.set(num, {
+              opacity: 0,
+              y: 16,
+            });
+          }
+
+          if (tags.length) {
+            gsap.set(tags, {
+              opacity: 0,
+              y: 12,
+            });
+          }
+
+          if (title) {
+            gsap.set(title, {
+              opacity: 0,
+              y: 22,
+            });
+          }
+
+          if (cta) {
+            gsap.set(cta, {
+              opacity: 0,
+              y: 14,
+            });
+          }
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+              once: true,
+            },
+          });
+
+          tl.to(
+            card,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease: 'power3.out',
+            },
+            0,
+          );
+
+          if (imgWrap) {
+            tl.to(
+              imgWrap,
+              {
+                clipPath: 'inset(0% 0 0 0 round 14px)',
+                duration: 0.9,
+                ease: 'power4.inOut',
+              },
+              0.1,
+            );
+          }
+
+          if (img) {
+            tl.to(
+              img,
+              {
+                scale: 1,
+                duration: 1.1,
+                ease: 'power3.out',
+              },
+              0.1,
+            );
+          }
+
+          if (num) {
+            tl.to(
+              num,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.45,
+                ease: 'power3.out',
+              },
+              0.42,
+            );
+          }
+
+          if (tags.length) {
+            tl.to(
+              tags,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: 'power3.out',
+                stagger: 0.07,
+              },
+              0.55,
+            );
+          }
+
+          if (title) {
+            tl.to(
+              title,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.55,
+                ease: 'power3.out',
+              },
+              0.62,
+            );
+          }
+
+          if (cta) {
+            tl.to(
+              cta,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.45,
+                ease: 'power3.out',
+              },
+              0.82,
+            );
+          }
+        });
+      });
+
+      return () => mm.revert();
+    },
+    {
+      scope: sectionRef,
+      dependencies: [projects],
+    },
+  );
+
+  return (
+    <div
+      ref={sectionRef}
+      className="md:hidden pb-12"
+    >
+      <div className="px-6 pt-16 pb-8">
+        <AnimatedHeading
+          text="PROJECTS"
+          className="text-[clamp(3rem,14vw,5rem)] font-black leading-none uppercase text-[#FFC700]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-4 px-4">
+        {projects.map((project, index) => (
+          <Link
+            key={project.id}
+            href={`/projects/${project.slug}`}
+            onTouchStart={() =>
+              router.prefetch(`/projects/${project.slug}`)
+            }
+            onClick={() => {
+              const scrollY = (window as any).__lenis
+                ? Math.round((window as any).__lenis.scroll)
+                : Math.round(window.scrollY);
+
+              sessionStorage.setItem(
+                'projects-scroll',
+                scrollY.toString(),
+              );
+
+              sessionStorage.setItem(
+                'previous-project-url',
+                window.location.pathname,
+              );
+            }}
+            ref={(el) => {
+              cardRefs.current[index] = el;
+            }}
+            className="overflow-hidden rounded-3xl block no-underline text-inherit"
+            style={{
+              background: '#111110',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+            }}
+          >
+            <div className="p-3 pb-0">
+              <div
+                className="mc-img-wrap relative overflow-hidden rounded-2xl"
+                style={{
+                  aspectRatio: '1919 / 923',
+                  clipPath:
+                    'inset(100% 0 0 0 round 14px)',
+                }}
+              >
+                <Image
+                  src={
+                    project.hoverImage ||
+                    project.images[0]
+                  }
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 767px) calc(100vw - 32px)"
+                  priority={index < 2}
+                  className="mc-img object-cover object-top"
+                />
+
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%, rgba(0,0,0,0.12) 100%)',
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="px-5 pt-4 pb-5 text-left">
+              <div className="flex items-center justify-between mb-4">
+                <span
+                  className="mc-num font-mono font-black leading-none"
+                  style={{
+                    fontSize: 'clamp(2.4rem,11vw,3.2rem)',
+                    color: '#FFC700',
+                    letterSpacing: '-0.03em',
+                  }}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {project.tech.slice(0, 3).map((t) => (
+                    <span
+                      key={t}
+                      className="mc-tag font-mono uppercase tracking-widest px-2.5 py-1 rounded-full"
+                      style={{
+                        fontSize: 9,
+                        background:
+                          'rgba(255,255,255,0.08)',
+                        color:
+                          'rgba(255,255,255,0.85)',
+                        border: '1px solid #FFC700',
+                      }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <h3
+                className="mc-title font-black uppercase leading-tight text-white mb-5"
+                style={{
+                  fontSize:
+                    'clamp(1.5rem,6.5vw,2.4rem)',
+                  letterSpacing: '-0.025em',
+                }}
+              >
+                {project.title}
+              </h3>
+
+              <div
+                className="mc-cta"
+                style={{ opacity: 0 }}
+              >
+                <div
+                  className="h-px w-full mb-4"
+                  style={{
+                    background:
+                      'rgba(255,255,255,0.07)',
+                  }}
+                />
+
+                <div className="flex items-center justify-between">
+                  <span
+                    className="font-mono text-[11px] uppercase tracking-widest"
+                    style={{
+                      color: '#FFC700',
+                      letterSpacing: '0.15em',
+                    }}
+                  >
+                    View Project
+                  </span>
+
+                  <span
+                    className="flex items-center justify-center w-9 h-9 rounded-full text-black text-sm"
+                    style={{
+                      background: '#FFC700',
+                      boxShadow:
+                        '0 0 16px rgba(196, 93, 62, 0.35)',
+                    }}
+                  >
+                    →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function ProjectsPage() {
+  const router = useRouter();
+  const projects = getAllProjects();
+  const isLoading = false;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleRowMouseEnter = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    index: number,
+  ) => {
+    router.prefetch(
+      `/projects/${projects[index]?.slug || ''}`,
+    );
+
+    const line =
+      e.currentTarget.querySelector('.hover-line-ref');
+
+    if (line) {
+      gsap.to(line, {
+        width: '100%',
+        duration: 0.4,
+        ease: 'power2.out',
+      });
+    }
+
+    const titleOverlay =
+      e.currentTarget.querySelector(
+        '.title-reveal-overlay',
+      ) as HTMLElement | null;
+
+    if (titleOverlay) {
+      titleOverlay.style.clipPath =
+        'inset(0 0% 0 0)';
+    }
+  };
+
+  const handleRowMouseLeave = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    const line =
+      e.currentTarget.querySelector('.hover-line-ref');
+
+    if (line) {
+      gsap.to(line, {
+        width: '0%',
+        duration: 0.4,
+        ease: 'power2.out',
+      });
+    }
+
+    const titleOverlay =
+      e.currentTarget.querySelector(
+        '.title-reveal-overlay',
+      ) as HTMLElement | null;
+
+    if (titleOverlay) {
+      titleOverlay.style.clipPath =
+        'inset(0 100% 0 0)';
+    }
+  };
+
+  const handleRowClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    const row = e.currentTarget;
+
+    const line =
+      row.querySelector('.hover-line-ref');
+
+    if (line) {
+      gsap.to(line, {
+        width: '100%',
+        duration: 0.15,
+        ease: 'power2.out',
+      });
+    }
+
+    gsap.to(row, {
+      backgroundColor:
+        'rgba(196, 93, 62, 0.04)',
+      duration: 0.15,
+      ease: 'power2.out',
+    });
+
+    const scrollY = (window as any).__lenis
+      ? Math.round((window as any).__lenis.scroll)
+      : Math.round(window.scrollY);
+
+    sessionStorage.setItem(
+      'projects-scroll',
+      scrollY.toString(),
+    );
+
+    sessionStorage.setItem(
+      'previous-project-url',
+      window.location.pathname,
+    );
+  };
+
+  useGSAP(
+    () => {
+      if (isLoading || projects.length === 0) return;
+
+      const rows =
+        containerRef.current?.querySelectorAll(
+          '.project-row-desktop',
+        );
+
+      if (!rows?.length) return;
+
+      rows.forEach((row, index) => {
+        const rect = row.getBoundingClientRect();
+        const alreadyVisible =
+          rect.top < window.innerHeight * 0.95;
+
+        if (alreadyVisible) {
+          gsap.fromTo(
+            row,
+            {
+              y: 30,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              delay: index * 0.08,
+              ease: 'power3.out',
+            },
+          );
+        } else {
+          gsap.fromTo(
+            row,
+            {
+              y: 40,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: row,
+                start: 'top 92%',
+                once: true,
+              },
+            },
+          );
+        }
+      });
+    },
+    {
+      scope: containerRef,
+      dependencies: [isLoading, projects],
+    },
+  );
+
+  if (isLoading) {
+    return (
+      <section
+        id="projects"
+        className="relative min-h-screen w-full text-white overflow-hidden px-12 py-20"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="h-20 bg-white rounded animate-pulse w-1/3 mb-10" />
+
+          <div className="space-y-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="py-8 border-b border-border flex animate-pulse"
+              >
+                <div className="w-12 h-6 bg-white rounded mr-8" />
+
+                <div className="flex-1 space-y-4">
+                  <div className="h-10 bg-white rounded w-1/2" />
+                  <div className="h-6 bg-white rounded w-1/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      id="projects"
+      ref={containerRef}
+      className="relative w-full text-white overflow-hidden"
+    >
+      
+      <div className="hidden md:block py-24 md:py-32 px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
+        <div className="mb-12">
+          <AnimatedHeading
+            text="PROJECTS"
+            className="text-[clamp(2.5rem,7vw,6.5rem)] font-black leading-none uppercase text-[#FFC700]"
+          />
+        </div>
+
+        <hr className="border-t border-border w-full mb-4" />
+
+        <div className="flex flex-col w-full">
+          {projects.map((project, index) => (
+            <Link
+              key={project.id}
+              href={`/projects/${project.slug}`}
+              className="project-row-desktop relative flex items-stretch border-b border-border py-8 min-h-[120px] group cursor-pointer no-underline"
+              onMouseEnter={(e) =>
+                handleRowMouseEnter(e, index)
+              }
+              onMouseLeave={handleRowMouseLeave}
+              data-cursor="view"
+              onClick={handleRowClick}
+            >
+              
+              <div className="flex-[0_0_80px] font-mono text-[13px] text-white pt-2 relative h-6 overflow-hidden">
+                <span className="block absolute transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <span className="block absolute translate-y-full opacity-0 text-[#FFC700] transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                  →
+                </span>
+              </div>
+
+              
+              <div className="flex-1 pr-8">
+                <h3 className="relative text-[clamp(2rem,4vw,3.5rem)] font-extrabold uppercase leading-none tracking-tight overflow-hidden">
+                  <span className="block text-white select-none">
+                    {project.title}
+                  </span>
+
+                  <span
+                    className="title-reveal-overlay block text-[#FFC700] absolute inset-0 select-none"
+                    style={{
+                      clipPath:
+                        'inset(0 100% 0 0)',
+                      transition:
+                        'clip-path 0.5s cubic-bezier(0.76,0,0.24,1)',
+                    }}
+                  >
+                    {project.title}
+                  </span>
+                </h3>
+
+                <div className="mt-3 flex flex-wrap gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-3 py-1 rounded-full bg-transparent border border-gray-300 text-[#FFC700] text-xs font-medium"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex-[0_0_200px] text-right flex flex-col justify-end items-end pb-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-white group-hover:text-[#FFC700] transition-colors duration-250 flex items-center gap-1">
+                  <span>View Project</span>
+
+                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-1.5">
+                    →
+                  </span>
+                </span>
+              </div>
+
+              
+              <div className="absolute bottom-0 left-0 h-[2px] bg-[#FFC700] w-0 hover-line-ref pointer-events-none" />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      
+      <MobileSnapProjects
+        projects={projects}
+        router={router}
+      />
+    </section>
+  );
+}
