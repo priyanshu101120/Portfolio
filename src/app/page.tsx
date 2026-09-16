@@ -8,6 +8,7 @@ import About from '@/components/sections/About';
 import MarqueeStrip from '@/components/sections/MarqueeStrip';
 import Contact from '@/components/sections/Contact';
 import Navbar from '@/components/shared/Navbar';
+import Footer from '@/components/shared/Footer';
 export default function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const reuniteRef = useRef<HTMLDivElement>(null);
@@ -113,8 +114,11 @@ export default function Home() {
             <Projects />
           </section>
           <MarqueeStrip />
-          <section className="relative z-25">
+          {/* <section className="relative z-25">
             <Contact />
+          </section> */}
+          <section className='relative z-25'>
+            <Footer />
           </section>
         </div>
       </main>
