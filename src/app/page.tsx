@@ -6,7 +6,6 @@ import HomeBanner from '@/components/sections/HomeBanner';
 import Projects from '@/components/sections/Projects';
 import About from '@/components/sections/About';
 import MarqueeStrip from '@/components/sections/MarqueeStrip';
-import Contact from '@/components/sections/Contact';
 import Navbar from '@/components/shared/Navbar';
 import Footer from '@/components/shared/Footer';
 export default function Home() {

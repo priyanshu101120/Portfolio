@@ -3,7 +3,6 @@ import './globals.css';
 import ClientLayout from './ClientLayout';
 import { siteMetadata } from '@/lib/metadata';
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { Background } from '@/components/shared/bg';
 
 const geistSans = Geist({
@@ -29,15 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased bg-cream`}
+        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <Background />
         <ClientLayout>{children}</ClientLayout>
         
         <Analytics />
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
       </body>
     </html>
   );

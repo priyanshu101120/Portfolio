@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
+import { socials } from '@/lib/socials';
 
 const menuLinks = ['Home', 'Work', 'About'];
-const socialLinks = ['X', 'Instagram', 'LinkedIn'];
-const resourceLinks = ['Weekstack App', 'Newsletter'];
+const socialLinks = socials.map((social) => social.name);
 
 export default function Footer() {
   return (
@@ -15,7 +15,6 @@ export default function Footer() {
         <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 sm:mt-24 sm:grid-cols-4">
           <FooterColumn title="Menu" links={menuLinks} />
           <FooterColumn title="Socials" links={socialLinks} />
-          <FooterColumn title="Resources" links={resourceLinks} />
 
           {/* Newsletter column */}
           <div>
@@ -81,7 +80,7 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
       <ul className="space-y-1.5">
         {links.map((link) => (
           <li key={link}>
-            <a href="#" className="text-[13px] transition-opacity hover:opacity-70 text-white">
+            <a href={socials.find((s) => s.name === link)?.url} className="text-[13px] transition-opacity hover:opacity-70 text-white">
               {link}
             </a>
           </li>
