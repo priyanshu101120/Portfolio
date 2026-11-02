@@ -38,7 +38,7 @@ export const fade: Variants = {
   },
   enter: {
     opacity: 0.75,
-    transition: { duration: 3, delay: 0.2 },
+    transition: { duration: 0.7, delay: 0.2 },
   },
 };
 

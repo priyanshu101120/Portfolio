@@ -8,7 +8,7 @@ const socialLinks = socials.map((social) => social.name);
 
 export default function Footer() {
   return (
-    <div className="w-full px-6 py-10 sm:px-10 sm:py-14 shadow-2xl text-foreground transition-colors duration-300 hover:border-card-border-hover hover:shadow-accent/5">
+    <div className="w-full min-h-[420px] px-6 py-10 sm:px-10 sm:py-14 shadow-2xl text-foreground transition-colors duration-300 hover:border-card-border-hover hover:shadow-accent/5">
       <div className="relative mx-auto w-full max-w-6xl">
 
         {/* ---------- Footer columns ---------- */}
