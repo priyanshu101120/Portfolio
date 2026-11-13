@@ -2,7 +2,7 @@
 
 import React from 'react';
 // import { socials } from '@/lib/socials';
-import CharcoalText from '@/components/ui/Charcoaltext';
+import CharcoalText from '@/components/ui/CharcoalText';
 
 export default function Footer() {
   return (
